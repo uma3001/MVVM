@@ -1,5 +1,6 @@
 package com.example.mvvm.api
 
+import com.example.mvvm.models.ApiResponse
 import com.example.mvvm.utills.Constants.Companion.API_KEY
 import retrofit2.Response
 import retrofit2.http.GET
@@ -15,5 +16,5 @@ interface NewsApi {
         Pagenumber: Int = 1,
         @Query("apikey")
         apikey:String = API_KEY
-    ): Response<NewsApi>
+    ): Response<ApiResponse>
 }

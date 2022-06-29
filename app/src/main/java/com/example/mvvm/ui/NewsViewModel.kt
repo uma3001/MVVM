@@ -8,8 +8,8 @@ import android.net.ConnectivityManager.TYPE_WIFI
 import android.net.NetworkCapabilities.*
 import android.os.Build
 import android.provider.ContactsContract.CommonDataKinds.Email.TYPE_MOBILE
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mvvm.models.ApiResponse
 import com.example.mvvm.repositry.NewsRepositry
@@ -21,7 +21,7 @@ import java.io.IOException
 class NewsViewModel(
     app: Application,
     val  newsrepositry: NewsRepositry
-):ViewModel() {
+):AndroidViewModel(app) {
 
     val breakingNews: MutableLiveData<Resources<ApiResponse>> = MutableLiveData()
     var breakingNewsPage = 1
@@ -61,6 +61,7 @@ class NewsViewModel(
                 } else {
                     val oldArticles = breakingNewsResponse?.articles
                     val newArticles = resultResponse.articles
+                    oldArticles?.addAll(newArticles)
                     //oldArticles?.addAll(newArticles)
                 }
                 return Resources.Success(breakingNewsResponse?: resultResponse)
@@ -70,8 +71,7 @@ class NewsViewModel(
     }
 
     private fun hasInternetConnection(): Boolean {
-        val connectivityManager = getApplication<NewsActivity>().getSystemService(
-            Context.CONNECTIVITY_SERVICE
+        val connectivityManager = getApplication<Application>().getSystemService(Context.CONNECTIVITY_SERVICE
         ) as ConnectivityManager
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             val activeNetwork = connectivityManager.activeNetwork ?: return false
@@ -95,3 +95,4 @@ class NewsViewModel(
         return false
     }
 }
+
