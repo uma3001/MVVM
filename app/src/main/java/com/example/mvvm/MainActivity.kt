@@ -6,6 +6,7 @@ import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageView
+import com.example.mvvm.ui.NewsActivity
 
 class MainActivity : AppCompatActivity() {
 
