@@ -20,7 +20,7 @@ import java.io.IOException
 
 class NewsViewModel(
     app: Application,
-    val  newsrepositry: NewsRepositry
+    val newsrepositry: NewsRepositry
 ):AndroidViewModel(app) {
 
     val breakingNews: MutableLiveData<Resources<ApiResponse>> = MutableLiveData()
@@ -61,7 +61,6 @@ class NewsViewModel(
                 } else {
                     val oldArticles = breakingNewsResponse?.articles
                     val newArticles = resultResponse.articles
-                    oldArticles?.addAll(newArticles)
                     //oldArticles?.addAll(newArticles)
                 }
                 return Resources.Success(breakingNewsResponse?: resultResponse)
